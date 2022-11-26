@@ -53,9 +53,15 @@ const About = () => {
     content.appendChild(header);
     return content;
 };
-const Routes = [
-    { path: '/', title: 'Home', template: Home() },
-    { path: '/about', title: 'About', template: About() }
-];
+const Routes = {
+    '/': {
+        title: 'Home',
+        template: Home()
+    },
+    '/about': {
+        title: 'About',
+        template: About()
+    }
+}
 const useRouter = new Router(Routes);
-useRouter.Render({path : window.location.pathname});
+// useRouter.Render({path : window.location.pathname});

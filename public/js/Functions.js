@@ -7,26 +7,14 @@ class Router {
 
     Render = (route) => {
         this.main.innerHTML = '';
-        this.routes.forEach((r) => {
-            if (route.path == r.path  ){
-                this.main.appendChild(r.template);
-                return;
-            }
-        })
-        if (route.path == '/' || route.path ==  ''|| route.path == './') {
-            this.main.appendChild(this.routes[0].template);
-            return;
+        if (this.routes[route.path]) {
+            this.main.appendChild(this.routes[route.path].template);
+        } else if (route.path === '/') {
+            this.main.appendChild(this.routes['/'].template);
         } else {
-            this.notFound();
+            this.main.appendChild(this.notFound());
         }
-    }
 
-    isAvailable(path) {
-        this.routes.forEach((r) => {
-            if (path == r.path){
-                return true;
-            } 
-        });
     }
 
     notFound () {
@@ -40,19 +28,19 @@ class Router {
         const header = document.querySelector('header');
         const nav = document.createElement('nav');
         const ul = document.createElement('ul');
-        routes.forEach(link => {
+        Object.keys(routes).forEach((path) => {
             let li = document.createElement('li');
             let a = document.createElement('a');
-            a.href = link.path;
-            a.textContent = link.title;
+            a.href = path;
+            a.textContent = routes[path].title;
             a.style.textDecoration = 'none';
-            a.style.color = 'coral';
+            a.style.color = '#fff';
             li.appendChild(a);
             ul.appendChild(li);
             a.addEventListener('click', (e) => {
                 e.preventDefault();
-                history.pushState(null, null, link.path);
-                this.Render(link);
+                history.pushState(null, null, path);
+                this.Render({ path });
             });
         });
         nav.appendChild(ul);
