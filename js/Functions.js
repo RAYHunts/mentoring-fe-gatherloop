@@ -68,4 +68,14 @@ class Style {
     }
 }
 
+class State {
+    constructor (state){
+        this.state = state;
+    }
+
+    setState = (state){
+        this.state = state;
+    }
+}
+
 export default Router;
