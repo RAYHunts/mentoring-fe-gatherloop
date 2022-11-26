@@ -4,15 +4,19 @@ class Router {
         this.routes = routes;
         this.Nav(this.routes);
     }
+    Styler = new Style();
+
 
     Render = (route) => {
         this.main.innerHTML = '';
-        if (this.routes[route.path]) {
-            this.main.appendChild(this.routes[route.path].template);
-        } else if (route.path === '/') {
+        console.log(route);
+        console.log(!this.routes[route.path]);
+        if (route.path == '/' || route.path == ''){
             this.main.appendChild(this.routes['/'].template);
+        } else if (!this.routes[route.path]) {
+            this.notFound();
         } else {
-            this.main.appendChild(this.notFound());
+            this.main.appendChild(this.routes[route.path].template);
         }
 
     }
@@ -33,8 +37,12 @@ class Router {
             let a = document.createElement('a');
             a.href = path;
             a.textContent = routes[path].title;
-            a.style.textDecoration = 'none';
-            a.style.color = '#fff';
+            let css = {
+                'text-decoration': 'none',
+                'color': 'black',
+                'padding': '10px'
+            }
+            this.Styler.Stylize(css, a);
             li.appendChild(a);
             ul.appendChild(li);
             a.addEventListener('click', (e) => {
@@ -46,6 +54,17 @@ class Router {
         nav.appendChild(ul);
         header.appendChild(nav);
         
+    }
+}
+
+class Style {
+    constructor() {
+    }
+
+    Stylize = (style, element) => {
+        Object.keys(style).forEach((key) => {
+            element.style[key] = style[key];
+        });
     }
 }
 
