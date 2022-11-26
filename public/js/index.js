@@ -1,10 +1,9 @@
 import Router from "./Functions.js";
-const main = document.querySelector('main');
 
 // body resset css
-// const body = document.querySelector('body');
-// body.style.margin = '0';
-// body.style.padding = '0';
+const body = document.querySelector('body');
+body.style.margin = '0';
+body.style.padding = '0';
 // const Nav = () => {
 //     const nav = document.createElement('nav');
 //     const links = [
@@ -44,7 +43,7 @@ const Home = () => {
     const header = document.createElement('h1');
     header.textContent = 'Home';
     content.appendChild(header);
-    main.appendChild(content);
+    return content;
 };
 
 const About = () => {
@@ -52,11 +51,11 @@ const About = () => {
     const header = document.createElement('h1');
     header.textContent = 'About';
     content.appendChild(header);
-    main.appendChild(content);
+    return content;
 };
 const Routes = [
-    { path: '/', title: 'Home', template: Home },
-    { path: '/about', title: 'About', template: About }
+    { path: '/', title: 'Home', template: Home() },
+    { path: '/about', title: 'About', template: About() }
 ];
 const useRouter = new Router(Routes);
-useRouter.Render(window.location.pathname);
+useRouter.Render({path : window.location.pathname});
