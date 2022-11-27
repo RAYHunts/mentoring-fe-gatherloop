@@ -40,7 +40,6 @@ class Router {
             let css = {
                 'text-decoration': 'none',
                 'color': 'black',
-                'padding': '10px'
             }
             this.Styler.Stylize(css, a);
             li.appendChild(a);
@@ -68,14 +67,34 @@ class Style {
     }
 }
 
-// class State {
-//     constructor (state){
-//         this.state = state;
-//     }
+class State {
+    constructor (key,state){
+        this.key = key;
+        if (localStorage.getItem(key) == null || localStorage.getItem(key) == undefined) {
+            localStorage.setItem(key, state);
+            this.setState(state);
+            // this.onStateInit();
+        }
+        this.setState(localStorage.getItem(key));
+    }
 
-//     setState = (state){
-//         this.state = state;
-//     }
-// }
+    getState = () => {
+        return this.state;
+    }
 
-export default Router;
+    setState = (state) => {
+        this.state = state;
+        localStorage.setItem(this.key, state);
+    }
+
+    onStateChange = (callback) => {
+        callback()
+    }
+
+    onStateInit = (callback) => {
+        callback()
+    }
+
+}
+
+export { Router, State, Style };
