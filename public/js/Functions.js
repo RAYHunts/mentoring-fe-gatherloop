@@ -85,15 +85,18 @@ class State {
     setState = (state) => {
         this.state = state;
         localStorage.setItem(this.key, state);
+        this.onStateChange();
     }
 
-    onStateChange = (callback) => {
-        callback()
+    onStateChange = () => {
+        console.log('State Changed');
     }
 
-    onStateInit = (callback) => {
-        callback()
+    setOnStateChange = (callback) => {
+        this.onStateChange = callback;
     }
+
+
 
 }
 

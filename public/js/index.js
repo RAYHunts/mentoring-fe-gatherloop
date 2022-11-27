@@ -7,10 +7,16 @@ body.style.padding = '0';
 
 const Home = () => {
     const useState = new State("state", "Home");
+    
     const content = document.createElement('div');
     const header = document.createElement('h1');
     let input = document.createElement('input');
     let clear = document.createElement('button');
+    function sideEffect () {
+        input.value = useState.getState();
+        header.textContent = useState.getState();
+    }
+    useState.setOnStateChange(sideEffect);
     clear.textContent = 'Clear';
     clear.addEventListener('click', () => {
         useState.setState('');
